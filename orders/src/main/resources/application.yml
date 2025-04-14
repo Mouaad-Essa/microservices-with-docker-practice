@@ -1,0 +1,30 @@
+server:
+  port: 8083  # Port for the order service
+
+spring:
+  application:
+    name: order  # The name registered in Eureka
+
+  datasource:
+    username: root
+    url: jdbc:mysql://localhost:3306/orderMicroServ?createDatabaseIfNotExist=true
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+    show-sql: true
+
+  cloud:
+    discovery:
+      enabled: true  # Enable Eureka client
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost

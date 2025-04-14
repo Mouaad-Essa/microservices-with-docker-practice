@@ -1,0 +1,30 @@
+server:
+  port: 8081  # Port for the customer service
+
+spring:
+  application:
+    name: customer  # The name of your microservice that will be registered with Eureka
+
+  datasource:
+    username: root
+    url: jdbc:mysql://localhost:3306/customerMicroServ?createDatabaseIfNotExist=true
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update  # The database schema will be updated on app startup
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+    show-sql: true
+
+  cloud:
+    discovery:
+      enabled: true  # Enable discovery with Eureka
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/  # URL for the Eureka server
+  instance:
+    hostname: localhost   # This could be dynamic depending on your environment
