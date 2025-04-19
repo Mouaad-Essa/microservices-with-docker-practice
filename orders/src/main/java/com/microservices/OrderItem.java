@@ -1,38 +1,27 @@
 package com.microservices;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import jakarta.persistence.*;
+import lombok.*;
 
 @Data
 @Builder
-@Entity
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Entity
 @Table(name = "order_items")
 public class OrderItem {
+
     @Id
-    @SequenceGenerator(
-            name = "order_item_id_sequence",
-            sequenceName = "order_item_id_sequence"
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "order_item_id_sequence"
-    )
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private Integer productId;
+
+    private Integer quantity;
 
     @ManyToOne
     @JoinColumn(name = "order_id")
     @JsonBackReference
     private Order order;
-
-    private Integer productId;
-
-    private Double quantity;
-
 }

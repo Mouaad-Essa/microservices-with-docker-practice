@@ -1,5 +1,7 @@
 package com.microservices;
 
+import com.microservices.DTO.OrderRequestDTO;
+import com.microservices.DTO.OrderResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,26 +17,26 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping
-    public ResponseEntity<Order> createOrder(@RequestBody OrderRequest orderRequest) {
-        Order newOrder = orderService.createOrder(orderRequest);
+    public ResponseEntity<OrderResponseDTO> createOrder(@RequestBody OrderRequestDTO orderRequestDTO) {
+        OrderResponseDTO newOrder = orderService.createOrder(orderRequestDTO);
         return ResponseEntity.status(201).body(newOrder);
     }
 
     @GetMapping
-    public ResponseEntity<List<Order>> getAllOrders() {
-        List<Order> orders = orderService.getAllOrders();
+    public ResponseEntity<List<OrderResponseDTO>> getAllOrders() {
+        List<OrderResponseDTO> orders = orderService.getAllOrders();
         return ResponseEntity.ok(orders);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Order> getOrderById(@PathVariable Integer id) {
-        Optional<Order> order = orderService.getOrderById(id);
+    public ResponseEntity<OrderResponseDTO> getOrderById(@PathVariable Integer id) {
+        Optional<OrderResponseDTO> order = orderService.getOrderById(id);
         return order.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Order> updateOrder(@PathVariable Integer id, @RequestBody OrderRequest orderRequest) {
-        Optional<Order> updatedOrder = orderService.updateOrder(id, orderRequest);
+    public ResponseEntity<OrderResponseDTO> updateOrder(@PathVariable Integer id, @RequestBody OrderRequestDTO orderRequestDTO) {
+        Optional<OrderResponseDTO> updatedOrder = orderService.updateOrder(id, orderRequestDTO);
         return updatedOrder.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
@@ -48,4 +50,3 @@ public class OrderController {
         }
     }
 }
-
