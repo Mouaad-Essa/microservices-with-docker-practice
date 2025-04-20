@@ -1,0 +1,29 @@
+server:
+  port: 8761  # Port for Eureka Server
+
+spring:
+  application:
+    name: eureka-tp1  # Application name for the Eureka Server
+
+eureka:
+  server:
+    enable-self-preservation: true  # Disable self-preservation to avoid Eureka getting stuck
+  client:
+    register-with-eureka: false  # Don't register Eureka Server with itself
+    fetch-registry: false  # Eureka Server doesn't need to fetch registry info
+  instance:
+    hostname: localhost  # Hostname for Eureka Server
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"  # Expose all actuator endpoints
+  endpoint:
+    health:
+      show-details: always  # Show detailed health info in /actuator/health
+
+logging:
+  level:
+    com.netflix.eureka: DEBUG  # Eureka logs
+    org.springframework.cloud.netflix.eureka: DEBUG  # Spring Cloud Eureka logs
